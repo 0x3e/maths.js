@@ -1,0 +1,92 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body>
+<div id=score style="position: fixed;left:16em;">
+0/0
+</div>
+<form id=form>
+</form>
+<script>
+total_questions=0
+total_correct=0
+question_template='#x #o #x = '
+s=document.createElement('input')
+s.id='submit'
+s.type='submit'
+s.style.display='none'
+p=document.createElement('p')
+p.innerHTML=question_template
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
+f=document.getElementById('form')
+form.addEventListener("submit", processForm);
+function processForm(e) {
+  e.preventDefault();
+  do_new()
+  return false;
+}
+x1=0
+x2=0
+o=["+","-","×","÷"]
+o0="+"
+function do_new()
+{
+  iput=document.getElementById('iput')
+  if(iput)
+  {
+    new_span=document.createElement('span')
+    if(o1==o[0])
+      ans=x1+x2+0
+    else if(o1==o[1])
+      ans=x1-x2+0
+    else if(o1==o[2])
+      ans=x1*x2+0
+    else if(o1==o[3])
+      ans=Math.floor(x1/x2)
+    if(!isFinite(ans))
+      ans="nan"
+    if(iput.value == ans)
+    {
+      new_span.innerHTML=iput.value+"✓"
+      total_correct++
+    }
+    else
+      new_span.innerHTML=iput.value+"✘ "
+    iput.parentNode.replaceChild(new_span, iput);
+    total_questions++
+  }
+  new_p=p.cloneNode(p)
+  x1=getRandomInt(0,12)
+  x2=getRandomInt(0,12)
+  o1=o[getRandomInt(0,o.length-1)]
+  if((o1=="-"||o1=="÷")&&x1<x2)
+  {
+    x_tmp=x1
+    x1=x2
+    x2=x_tmp
+  }
+  new_p.innerHTML=new_p.innerHTML.replace('#x',x1) 
+  new_p.innerHTML=new_p.innerHTML.replace('#x',x2) 
+  new_p.innerHTML=new_p.innerHTML.replace('#o',o1) 
+  iput=document.createElement('input')
+  iput.id="iput"
+  iput.style.display="inline"
+  iput.style.width="2em"
+  new_s=document.getElementById('submit')
+  if(new_s)
+    new_s.remove()
+  f.appendChild(new_p)
+  new_p.appendChild(iput)
+  iput.focus()
+  f.appendChild(s)
+  document.getElementById('score').innerHTML=total_correct+"/"+total_questions
+
+}
+do_new()
+</script>
+</body>
+</html>
+
