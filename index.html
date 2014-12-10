@@ -1,6 +1,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style>
+.y {color: green}
+.n {color: red}
+</style>
 </head>
 <body>
 <div id=score style="position: fixed;left:16em;">
@@ -51,10 +55,14 @@ function do_new()
     if(iput.value == ans)
     {
       new_span.innerHTML=iput.value+"✓"
+      new_span.className="y" 
       total_correct++
     }
     else
+    {
       new_span.innerHTML=iput.value+"✘ "
+      new_span.className="n" 
+    }
     iput.parentNode.replaceChild(new_span, iput);
     total_questions++
   }
@@ -62,11 +70,16 @@ function do_new()
   x1=getRandomInt(0,12)
   x2=getRandomInt(0,12)
   o1=o[getRandomInt(0,o.length-1)]
-  if((o1=="-"||o1=="÷")&&x1<x2)
+  /*o1=o[3]*/
+  if(o1=="-"&&x1<x2)
   {
     x_tmp=x1
     x1=x2
     x2=x_tmp
+  }
+  if(o1=="÷")
+  {
+    x1=x2*x1
   }
   new_p.innerHTML=new_p.innerHTML.replace('#x',x1) 
   new_p.innerHTML=new_p.innerHTML.replace('#x',x2) 
