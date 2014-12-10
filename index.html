@@ -4,7 +4,8 @@
 <style>
 .y {color: green}
 .n {color: red}
-.score {position: fixed;left:16em;}
+#score {position: fixed;left:16em;}
+#container {margin: 1em;padding: 1em;}
 </style>
 </head>
 <body>
@@ -42,6 +43,7 @@ o0="+"
 function do_new()
 {
   iput=document.getElementById('iput')
+  correct=false
   if(iput)
   {
     new_span=document.createElement('span')
@@ -54,8 +56,12 @@ function do_new()
     else if(o1==o[3])
       ans=Math.floor(x1/x2)
     if(!isFinite(ans))
-      ans="nan"
-    if(iput.value == ans)
+      ans="undefined"
+    if(iput.value === "undefined" && ans === "undefined")
+      correct = true
+    else if(parseInt(iput.value) === ans)
+      correct = true
+    if(correct)
     {
       new_span.innerHTML=iput.value+"✓"
       new_span.className="y" 
