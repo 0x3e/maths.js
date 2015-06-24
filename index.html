@@ -31,7 +31,7 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 f = document.getElementById('form');
-form.addEventListener("submit", processForm);
+f.addEventListener("submit", processForm);
 
 function processForm(e) {
     e.preventDefault();
@@ -87,7 +87,7 @@ function do_new() {
     iput.style.display = "inline";
     iput.style.width = "2em";
     new_s = document.getElementById('submit');
-    if (new_s) new_s.remove();
+    if (new_s) new_s.parentNode.removeChild(new_s);
     f.appendChild(new_p);
     new_p.appendChild(iput);
     iput.focus();
